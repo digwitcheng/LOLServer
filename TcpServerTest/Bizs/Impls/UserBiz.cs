@@ -26,23 +26,22 @@ namespace LOLServer.Bizs.Impls
         {
             int accountId = accountBiz.GetAccountId(socketMessage.Session);
             if (accountId == -1) return null;
-            if (userCache.IsCreate(accountId)) return null;
+            if (!userCache.IsCreate(accountId)) return null;
             return userCache.GetUserInfo(accountId);
         }
 
-        public void Offline(SocketMessage socketMessage)
+        public void Offline(TcpSocketSaeaSession session)
         {
-            int accountId = accountBiz.GetAccountId(socketMessage.Session);
-           // userCache.Offline(accountId);
+            int accountId = accountBiz.GetAccountId(session);
+            userCache.Offline(accountId);
         }
 
-        public bool Online(SocketMessage socketMessage)
+        public User Online(SocketMessage socketMessage)
         {
-            //int accountId = accountBiz.GetAccountId(socketMessage.Session);
-            //if (accountId == -1) return false;
-            //if (userCache.IsOnline(accountId)) return false;
-            // userCache.Online(socketMessage.Session,accountId);
-            return true;
+            int accountId = accountBiz.GetAccountId(socketMessage.Session);
+            if (accountId == -1) return null;
+            if (!userCache.IsCreate(accountId)) return null;
+            return userCache.Online(accountId);          
         }
     }
 }

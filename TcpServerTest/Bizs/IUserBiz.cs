@@ -14,8 +14,8 @@ namespace LOLServer.Bizs
 
         User GetUserInfo(SocketMessage socketMessage);
 
-        bool Online(SocketMessage socketMessage);
+        User Online(SocketMessage socketMessage);
 
-        void Offline(SocketMessage socketMessage);
+        void Offline(TcpSocketSaeaSession session);
     }
 }

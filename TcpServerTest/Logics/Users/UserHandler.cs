@@ -1,4 +1,5 @@
-﻿using LOLServer.Bizs;
+﻿using Cowboy.Sockets;
+using LOLServer.Bizs;
 using LOLServer.Daos.models;
 using LOLSocketModel;
 using LOLSocketModel.Dtos;
@@ -13,7 +14,7 @@ namespace LOLServer.Logics.Users
     class UserHandler : BaseHandler
     {
         IUserBiz userBiz = BizFactory.userBize;
-        public override void Receive(SocketMessage model,Action<object> action)
+        public override void Receive(SocketMessage model)
         {
             switch (model.Model.Command)
             {
@@ -33,7 +34,7 @@ namespace LOLServer.Logics.Users
 
         private async void Online(SocketMessage model)
         {
-            await SendAsync(model, CommandProtocol.ONLINE_SREQ, userBiz.Online(model));
+            await SendAsync(model, CommandProtocol.ONLINE_SREQ, ConvertToUserDto(userBiz.Online(model)));
         }
 
         private async void Info(SocketMessage model)
@@ -47,7 +48,7 @@ namespace LOLServer.Logics.Users
             bool result = userBiz.Create(model);
             if (result)
             {
-                await SendAsync(model, CommandProtocol.CREATE_SREQ, model.Model.Message);
+                await SendAsync(model, CommandProtocol.CREATE_SREQ,result);
             }
         }
 
@@ -55,6 +56,11 @@ namespace LOLServer.Logics.Users
         {
             if (user == null) return null;
             return new UserDto(user.Id, user.Name, user.Level, user.WinCount, user.LoseCount, user.RunCount, user.Exp);
+        }
+
+        public  override void Close(TcpSocketSaeaSession session)
+        {
+            userBiz.Offline(session);
         }
     }
 }

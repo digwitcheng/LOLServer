@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Cowboy.Sockets;
 using LOLServer.Bizs;
 using LOLSocketModel;
 using LOLSocketModel.Dtos;
@@ -10,7 +11,7 @@ namespace LOLServer
     {
         IAccountBiz accountBiz = BizFactory.accountBiz;
 
-        public override void Receive(SocketMessage model,Action<object>action)
+        public override void Receive(SocketMessage model)
         {
             switch (model.Model.Command)
             {
@@ -36,6 +37,10 @@ namespace LOLServer
             Result result= accountBiz.Login(message.Session, accountInfo.Account, accountInfo.Password);
            await  SendAsync(message, CommandProtocol.LOGIN_SRES, (byte)result);
         }
-       
+
+        public override void Close(TcpSocketSaeaSession session)
+        {
+            accountBiz.Offline(session,null,null);
+        }
     }
 }

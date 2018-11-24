@@ -49,7 +49,7 @@ namespace LOLServer.Caches
             if (onlineAccount.ContainsKey(session))
             {
                 string account;
-                onlineAccount.TryRemove(session, out account);
+                bool res = onlineAccount.TryRemove(session, out account); 
             }
         }
 

@@ -30,26 +30,23 @@ namespace LOLServer.Caches
             return userIdMap[accountId];
         }
 
-        //public void Offline(int accountId)
-        //{
-        //        TcpSocketSaeaSession session;
-        //        accountIdToSession.TryRemove(accountId, out session);
-        //        if (sessionToAccountId.ContainsKey(session))
-        //        {
-        //            sessionToAccountId.TryRemove(session, out int a);
-        //        }
-        //}
+        public void Offline(int accountId)
+        {
+            int userId;
+            accountIdToUserId.TryRemove(accountId, out userId);
+            if (userIdMap.ContainsKey(userId))
+            {
+                userIdMap.TryRemove(userId, out User a);
+            }
+        }
 
-        //public User Online(TcpSocketSaeaSession session ,int accountId)
-        //{
-        //    accountIdToSession.AddOrUpdate(accountId, session, (k, v) => { return v; });
-        //    sessionToAccountId.AddOrUpdate(session,accountId, (k, v) => { return v; });
+        public User Online(int accountId)
+        {
+            //accountIdToSession.AddOrUpdate(accountId, session, (k, v) => { return v; });
+            //sessionToAccountId.AddOrUpdate(session, accountId, (k, v) => { return v; });
+            return userIdMap[accountId];
 
-        //}
+        }
 
-        //public bool IsOnline(int accountId)
-        //{
-
-        //}
     }
 }

@@ -16,7 +16,7 @@ namespace LOLServer
         {
             try
             {
-                MessageManager.Instance.Start();
+               MessageManager.Instance.Start();
                 while (true)
                 {                    
                 }

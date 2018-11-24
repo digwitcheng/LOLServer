@@ -16,9 +16,9 @@ namespace LOLServer.Caches
 
         User GetUserInfo(int accountId);
 
-        //User Online(TcpSocketSaeaSession session, int accountId);
+        User Online(int accountId);
 
-        //void Offline(int accountId);
+        void Offline(int accountId);
 
         //bool IsOnline(int accountId);
     }

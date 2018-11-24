@@ -45,13 +45,18 @@
     <Compile Include="AreaProtocol.cs" />
     <Compile Include="CommandProtocol.cs" />
     <Compile Include="Dtos\UserDto.cs" />
-    <Compile Include="IReceiveMessage.cs" />
     <Compile Include="Result.cs" />
     <Compile Include="Dtos\AccountInfoDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeProtocol.cs" />
     <Compile Include="SerializationUtil.cs" />
     <Compile Include="MessageModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cowboy.Saea.TcpServer\Cowboy.Saea.TcpServer.csproj">
+      <Project>{8B613D32-E0A2-48CE-93F9-A1B160CCA92F}</Project>
+      <Name>Cowboy.Saea.TcpServer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
