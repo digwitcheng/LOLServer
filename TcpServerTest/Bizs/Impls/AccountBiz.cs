@@ -22,7 +22,7 @@ namespace LOLServer.Bizs
             return Result.RegSuccess;
         }
 
-        public int GetUserId(TcpSocketSaeaSession session)
+        public int GetAccountId(TcpSocketSaeaSession session)
         {
            return  accountCache.GetUserId(session);
         }

@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace LOLServer
 {
-    class BaseHandler
+    abstract class BaseHandler: IReceiveMessage<SocketMessage>
     {
+        public abstract void Receive(SocketMessage model,Action<object> action=null);
         #region 通过连接对象发送  
         public async Task SendAsync(SocketMessage socketMessage, int command)
         {

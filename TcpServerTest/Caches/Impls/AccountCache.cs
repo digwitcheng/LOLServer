@@ -13,18 +13,18 @@ namespace LOLServer.Caches
         //玩家连接对象与账号的绑定
         ConcurrentDictionary<TcpSocketSaeaSession, string> onlineAccount = new ConcurrentDictionary<TcpSocketSaeaSession, string>();
         //账号与自身属性的绑定
-        ConcurrentDictionary<string, AccountModel> accountMap = new ConcurrentDictionary<string, AccountModel>();
+        ConcurrentDictionary<string, Account> accountMap = new ConcurrentDictionary<string, Account>();
 
         public void Add(string account, string password)
         {
-            AccountModel model = new AccountModel(userId++,account, password);
+            Account model = new Account(userId++,account, password);
             accountMap.AddOrUpdate(account,model, (k, v) => { return v; });
         }
 
         public int GetUserId(TcpSocketSaeaSession session)
         {
             if (!onlineAccount.ContainsKey(session)) return -1;
-            return accountMap[onlineAccount[session]].Id;
+            return accountMap[onlineAccount[session]].UserId;
         }
 
         public bool IsExistAccount(string account)
@@ -41,7 +41,7 @@ namespace LOLServer.Caches
         public bool IsOnline(string account)
         {
             if (!IsExistAccount(account)) { return false; }
-            return true;// onlineAccount.ContainsKey(accountMap[account]);
+            return onlineAccount.Values.Contains(account);
         }
 
         public void Offline(TcpSocketSaeaSession session)

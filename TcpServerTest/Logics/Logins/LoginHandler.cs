@@ -6,19 +6,19 @@ using LOLSocketModel.Dtos;
 
 namespace LOLServer
 {
-     class LoginHandler :BaseHandler, IReceiveMessage
+     class LoginHandler :BaseHandler
     {
         IAccountBiz accountBiz = BizFactory.accountBiz;
 
-        public void Receive(SocketMessage message)
+        public override void Receive(SocketMessage model,Action<object>action)
         {
-            switch (message.Model.Command)
+            switch (model.Model.Command)
             {
                 case CommandProtocol.LOGIN_CREQ:
-                    Login(message);
+                    Login(model);
                     break;
                 case CommandProtocol.REG_CREQ:
-                    Reg(message);
+                    Reg(model);
                     break;
             }
         }
@@ -35,7 +35,6 @@ namespace LOLServer
             AccountInfoDto accountInfo = (AccountInfoDto)message.Model.Message;
             Result result= accountBiz.Login(message.Session, accountInfo.Account, accountInfo.Password);
            await  SendAsync(message, CommandProtocol.LOGIN_SRES, (byte)result);
-
         }
        
     }

@@ -37,6 +37,6 @@ namespace LOLServer.Bizs
         /// <returns></returns>
         void Offline(TcpSocketSaeaSession session, string account, string password);
 
-        int GetUserId(TcpSocketSaeaSession session);
+        int GetAccountId(TcpSocketSaeaSession session);
     }
 }

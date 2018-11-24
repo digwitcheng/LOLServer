@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="AreaProtocol.cs" />
     <Compile Include="CommandProtocol.cs" />
+    <Compile Include="Dtos\UserDto.cs" />
+    <Compile Include="IReceiveMessage.cs" />
     <Compile Include="Result.cs" />
     <Compile Include="Dtos\AccountInfoDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

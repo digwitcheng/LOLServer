@@ -20,6 +20,7 @@ namespace LOLServer
         public async Task OnSessionClosed(TcpSocketSaeaSession session)
         {
             Console.WriteLine("closed:" + session.RemoteEndPoint);
+
             await Task.CompletedTask;
         }
 

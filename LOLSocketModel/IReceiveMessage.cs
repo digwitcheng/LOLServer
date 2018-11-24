@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LOLServer
+namespace LOLSocketModel
 {
-    interface IReceiveMessage
+    public interface IReceiveMessage<T>
     {
-        void Receive(SocketMessage message);
+        void Receive(T model,Action<object> action);
     }
 }

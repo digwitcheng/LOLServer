@@ -45,18 +45,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseHandler.cs" />
-    <Compile Include="Bizs\AccountBiz.cs" />
+    <Compile Include="Bizs\Impls\UserBiz.cs" />
+    <Compile Include="Bizs\IUserBiz.cs" />
+    <Compile Include="Caches\IUserCache.cs" />
+    <Compile Include="Caches\Impls\UserCache.cs" />
+    <Compile Include="Daos\models\User.cs" />
+    <Compile Include="Exceptions\ErrorTypeException.cs" />
+    <Compile Include="Logics\BaseHandler.cs" />
+    <Compile Include="Bizs\Impls\AccountBiz.cs" />
     <Compile Include="Bizs\BizFactory.cs" />
     <Compile Include="Bizs\IAccountBiz.cs" />
-    <Compile Include="Caches\AccountCache.cs" />
+    <Compile Include="Caches\Impls\AccountCache.cs" />
     <Compile Include="Caches\CacheFactory.cs" />
     <Compile Include="Caches\IAccountCache.cs" />
     <Compile Include="ConstDefine.cs" />
-    <Compile Include="Daos\models\AccountModel.cs" />
-    <Compile Include="ExecutorPool.cs" />
-    <Compile Include="IReceiveMessage.cs" />
-    <Compile Include="LoginHandler.cs" />
+    <Compile Include="Daos\models\Account.cs" />
+    <Compile Include="Logics\HandlerFactory.cs" />
+    <Compile Include="Logics\Logins\LoginHandler.cs" />
+    <Compile Include="Logics\Users\UserHandler.cs" />
     <Compile Include="MessageManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

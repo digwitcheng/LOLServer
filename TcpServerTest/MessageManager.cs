@@ -1,4 +1,5 @@
 ﻿using Cowboy.Sockets;
+using LOLServer.Logics;
 using LOLSocketModel;
 using System;
 using System.Collections.Concurrent;
@@ -14,34 +15,23 @@ namespace LOLServer
     {
         private TcpSocketSaeaServer server;
         private ConcurrentQueue<SocketMessage> reciveMessageQueue;
-        private IReceiveMessage loginReceive;
         
 
         private MessageManager()
         {
             reciveMessageQueue = new ConcurrentQueue<SocketMessage>();
             server = new TcpSocketSaeaServer(5555, new SimpleServerMessageDispatcher(reciveMessageQueue));
-            loginReceive = new LoginHandler();
         }
-
-        private static MessageManager instance;
-        private static readonly object instanceLock = new object();
         public static MessageManager Instance
         {
             get
             {
-                if (instance == null)
-                {
-                    lock (instanceLock)
-                    {
-                        if (instance == null)
-                        {
-                            instance = new MessageManager();
-                        }
-                    }
-                }
-                return instance;
-            }
+               return InnerClass.instance;
+            }          
+        }
+        class InnerClass
+        {
+           public  static readonly MessageManager instance = new MessageManager();
         }
 
         public void Start()
@@ -63,15 +53,9 @@ namespace LOLServer
                 {
                     SocketMessage model;
                     reciveMessageQueue.TryDequeue(out model);
-                    switch (model.Model.Type)
-                    {
-                        case TypeProtocol.LOGIN:
-                            loginReceive.Receive(model);
-                            break;
-                        default:
-                            break;
-
-                    }
+                    IReceiveMessage<SocketMessage> receiveHandler = HandlerFactory.CreateHandler(model.Model.Type);
+                        receiveHandler.Receive(model,null);
+                    
                 }
             }
         }
